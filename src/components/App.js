@@ -1,27 +1,27 @@
 import '../styles/App.css';
 import { useState,useEffect  } from 'react';
-
-const ListPokemones = ({pokemones}) => {
-
-  let final = [];
-  Object.keys(pokemones).map(key => (
-    final.push(<li key={key}>{pokemones[key].name}</li>)
-  ))
-
-  return <ul>{final}</ul>
-}
+import { getPokemones } from '../services/Pokemones'
+import { ListPokemones } from './Pokemones'
 
 const App = () => {
 
-  useEffect(() => {
-    getPokemones(0);
-  }, []);
-
   const [paginaActual, setPaginaActual] = useState(0);
   const [pokemones, setPokemones] = useState({})
+  const [loaded, setLoaded] = useState(false);
 
-  const getPokemones = (direccion) => {
+  useEffect(() => {
 
+    setLoaded(false);
+
+    getPokemones(paginaActual)
+     .then(pokemones => {
+      setPokemones(pokemones);
+      setLoaded(true);
+     });
+
+  }, [paginaActual]);
+
+  const actualizarPaginaActual = (direccion) => {
     let pagina = 0;
   
     if (direccion == 0) {
@@ -32,20 +32,22 @@ const App = () => {
       pagina = paginaActual-20;
     }
 
-    let uri = `https://pokeapi.co/api/v2/pokemon/?offset=${pagina}&limit=20`;
-    
-    fetch(uri)
-      .then(response => response.json())
-      .then(data => setPokemones(data.results) ); 
-
     setPaginaActual(pagina);
   }
 
   return (
     <div className="App">
-      <button onClick={() => getPokemones(2)}>Anterior</button>
-      <button onClick={() => getPokemones(0)}>Resetear</button>
-      <button onClick={() => getPokemones(1)}>Siguiente</button>
+      <button 
+        disabled={ !paginaActual } 
+        onClick={ () => actualizarPaginaActual(2) }>
+          Anterior
+      </button>
+      <button onClick={ () => actualizarPaginaActual(0) }>
+        Inicio
+      </button>
+      <button onClick={ () => actualizarPaginaActual(1) }>
+        Siguiente
+      </button>
 
       <ListPokemones pokemones={pokemones}/>
     </div>

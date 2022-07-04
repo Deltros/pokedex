@@ -5,7 +5,7 @@ function Header() {
     <div className="header">
       <a>Posible Logo</a>
       <div className="header-right">
-        <a class="active" href="#home">Home</a>
+        <a className="active" href="#home">Home</a>
         <a href="#contact">Contact</a>
         <a href="#about">About</a>
       </div>
@@ -13,5 +13,4 @@ function Header() {
   );
 }
 
-
-  export default Header;
+export default Header;
