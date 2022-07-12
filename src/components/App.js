@@ -1,7 +1,9 @@
 import '../styles/App.css';
 import { useState,useEffect  } from 'react';
-import { getPokemones } from '../services/Pokemones'
-import { ListPokemones } from './Pokemones'
+import { loadDataPokemones } from '../services/Pokemones'
+import { ParsePokemones } from './Pokemones'
+
+import Button from '@mui/material/Button';
 
 const App = () => {
 
@@ -10,14 +12,12 @@ const App = () => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-
-    setLoaded(false);
-
-    getPokemones(paginaActual)
-     .then(pokemones => {
-      setPokemones(pokemones);
+    
+    ( async () => {
+      const data = await loadDataPokemones(paginaActual);
+      setPokemones(data);
       setLoaded(true);
-     });
+    })();
 
   }, [paginaActual]);
 
@@ -37,19 +37,19 @@ const App = () => {
 
   return (
     <div className="App">
-      <button 
+      <Button 
         disabled={ !paginaActual } 
         onClick={ () => actualizarPaginaActual(2) }>
           Anterior
-      </button>
-      <button onClick={ () => actualizarPaginaActual(0) }>
+      </Button>
+      <Button onClick={ () => actualizarPaginaActual(0) }>
         Inicio
-      </button>
-      <button onClick={ () => actualizarPaginaActual(1) }>
+      </Button>
+      <Button onClick={ () => actualizarPaginaActual(1) }>
         Siguiente
-      </button>
+      </Button>
 
-      <ListPokemones pokemones={pokemones}/>
+      <ParsePokemones pokemones={pokemones}/>
     </div>
   );
 }
