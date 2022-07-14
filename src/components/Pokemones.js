@@ -24,11 +24,12 @@ const commonStyles = {
 };
 
 const createItems = (pokemones)  => {
+
   let items = [];
 
   if (Array.isArray(pokemones)) {
-    pokemones.map(function (pokemon, index, array) {
 
+    pokemones.map( (pokemon) => {
       items.push(
         <Grid item key={pokemon.name} xs={4}>
           <Item>
@@ -37,8 +38,8 @@ const createItems = (pokemones)  => {
           </Item>
         </Grid>
       )
-
     });
+
   }
 
   return items;

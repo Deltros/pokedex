@@ -1,14 +1,17 @@
+import { BrowserRouter, Link } from 'react-router-dom';
 import '../styles/Header.css';
 
 function Header() {
   return (
     <div className="header">
       <a>Posible Logo</a>
-      <div className="header-right">
-        <a className="active" href="#home">Home</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
-      </div>
+      <BrowserRouter>
+        <div className="header-right">
+          <Link to='/pokemones' className="active">Pokemones</Link>
+          <Link to='/pokemon'>Pokemon</Link>
+          <a href="#about">About</a>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
