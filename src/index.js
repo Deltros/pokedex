@@ -1,16 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './components/App';
 import Header from './components/Header';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { PokemonesPage } from './pages/PokemonesPage'
+import { PokemonPage } from './pages/PokemonPage'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Header />
-    <br />
-    <App />
+    <BrowserRouter>
+        <Header />
+        <br />
+        <Routes>
+          <Route path='/' element={<PokemonesPage />} />
+          <Route path='/pokemones' element={<PokemonesPage />}>
+          </Route>
+          <Route path='/pokemon' element={<PokemonPage />}>
+          </Route>
+        </Routes>
+      </BrowserRouter>
   </React.StrictMode>
 );
 

@@ -3,24 +3,21 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { red } from '@mui/material/colors';
+import { Link } from 'react-router-dom';
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: '#ffe000',
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  color: red,
-  borderRadius: '16px'
+  borderRadius: '16px',
+  height: '150px',
+  border: '3px solid blue'
 }));
 
 const commonStyles = {
   bgcolor: 'background.paper',
-  borderColor: 'text.primary',
-  m: 1,
-  border: 1,
-  width: '5rem',
-  height: '5rem',
-  justifyContent: "center"
+  border: 3,
+  borderColor: 'blue',
 };
 
 const createItems = (pokemones)  => {
@@ -31,11 +28,19 @@ const createItems = (pokemones)  => {
 
     pokemones.map( (pokemon) => {
       items.push(
-        <Grid item key={pokemon.name} xs={4}>
-          <Item>
-            <img src = {pokemon.sprites.front_default} />
-            {pokemon.name}
-          </Item>
+        <Grid item key={pokemon.name} xs={3} justifyContent="center">
+          <Link to='/pokemon'>
+            <Item>
+              <Box xs={12}>
+                <Box sx={{ ...commonStyles }}>
+                  <img src = {pokemon.sprites.front_default} />
+                </Box>
+              </Box>
+              <Box xs={12}>
+                {pokemon.name}
+              </Box>
+            </Item>            
+          </Link>
         </Grid>
       )
     });
