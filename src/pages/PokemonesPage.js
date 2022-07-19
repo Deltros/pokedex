@@ -34,7 +34,7 @@ export const PokemonesPage = () => {
     setPaginaActual(pagina);
   }
 
-  if (pokemones.length === 0) return "cargando";
+  if (!loaded) return "cargando";
 
   return (
     <div className="App">

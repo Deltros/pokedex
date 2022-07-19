@@ -25,11 +25,10 @@ const createItems = (pokemones)  => {
   let items = [];
 
   if (Array.isArray(pokemones)) {
-
     pokemones.map( (pokemon) => {
       items.push(
         <Grid item key={pokemon.name} xs={3} justifyContent="center">
-          <Link to='/pokemon'>
+          <Link to={'/pokemon/' + pokemon.name}>
             <Item>
               <Box xs={12}>
                 <Box sx={{ ...commonStyles }}>
